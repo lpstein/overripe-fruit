@@ -27,4 +27,14 @@ class MoviesViewController: UIViewController {
     super.didReceiveMemoryWarning()
     
   }
+  
+  func onRefresh() {
+    println("Refresh")
+    
+    refreshControl.endRefreshing()
+  }
+  
+  func load() {
+    
+  }
 }
