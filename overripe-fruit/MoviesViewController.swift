@@ -14,7 +14,6 @@ import AFNetworking
 class MoviesViewController: UIViewController, UITableViewDataSource {
   @IBInspectable var sourceUrl: String!
   @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var scrollView: UIScrollView!
   var refreshControl: UIRefreshControl!
   
   let requestManager = AFHTTPSessionManager()
@@ -25,7 +24,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
 
     refreshControl = UIRefreshControl()
     refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
-    scrollView.insertSubview(refreshControl, atIndex: 0)
+    tableView.insertSubview(refreshControl, atIndex: 0)
 
     tableView.registerNib(UINib(nibName: "MovieCell", bundle: nil), forCellReuseIdentifier: "com.shazam.MovieCell")
     tableView.dataSource = self
@@ -63,15 +62,23 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
   func onRefresh() {
     println("Refresh")
     
-    refreshControl.endRefreshing()
+    load()
   }
   
   func load() {
     requestManager.GET(sourceUrl, parameters: nil, success: { (operation, response) -> Void in
       self.data = response.objectForKey("movies") as! NSArray
       self.tableView.reloadData()
+      
+      if self.refreshControl.refreshing {
+        self.refreshControl.endRefreshing()
+      }
     }, failure: { (operation, error) -> Void in
       NSLog("Load failed: \(error.localizedDescription)")
+      
+      if self.refreshControl.refreshing {
+        self.refreshControl.endRefreshing()
+      }
     })
   }
 }
