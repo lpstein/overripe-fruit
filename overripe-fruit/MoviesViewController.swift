@@ -47,9 +47,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
     let cell = tableView.dequeueReusableCellWithIdentifier("com.shazam.MovieCell", forIndexPath: indexPath) as! MovieCell
 
     if let movie = data[indexPath.row] as? NSDictionary {
-      cell.setData(NSURL(string: movie.valueForKeyPath("posters.thumbnail") as! String)!,
+      cell.setData(NSURL(string: hackImageUrl(movie.valueForKeyPath("posters.thumbnail") as! String))!,
         title: movie.valueForKeyPath("title") as? String,
-        synopsis: movie.valueForKeyPath("synopsis") as? String)
+        synopsis: movie.valueForKeyPath("synopsis") as? String,
+        rating: movie.valueForKeyPath("mpaa_rating") as? String
+      )
     }
     
     return cell
@@ -80,5 +82,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
         self.refreshControl.endRefreshing()
       }
     })
+  }
+  
+  func hackImageUrl(url: String) -> String {
+    if let range = url.rangeOfString(".*cloudfront.net/", options: .RegularExpressionSearch) {
+      return url.stringByReplacingCharactersInRange(range, withString: "https://content6.flixster.com/")
+    } else {
+      return url
+    }
   }
 }
