@@ -10,6 +10,9 @@
             <objects>
                 <viewController title="DVDs" id="t8l-t9-mzW" customClass="MoviesViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="contacts" id="ICR-MZ-HZU"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sourceUrl" value="https://gist.githubusercontent.com/timothy1ee/e41513a57049e21bc6cf/raw/b490e79be2d21818f28614ec933d5d8f467f0a66/gistfile1.json"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tnr-n3-zGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -20,6 +23,9 @@
             <objects>
                 <viewController title="Movies" id="YRk-50-x2D" customClass="MoviesViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="70B-bE-69q"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sourceUrl" value="https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gc4-6z-AKK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

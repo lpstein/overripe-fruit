@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38257A911B8FD44900615C8C /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38257A901B8FD44900615C8C /* MovieCell.swift */; };
+		38257A931B8FD9CB00615C8C /* MovieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38257A921B8FD9CB00615C8C /* MovieCell.xib */; };
 		38F357AC1B8E2CB9000534FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F357AB1B8E2CB9000534FD /* AppDelegate.swift */; };
 		38F357AE1B8E2CB9000534FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F357AD1B8E2CB9000534FD /* ViewController.swift */; };
 		38F357B11B8E2CB9000534FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38F357AF1B8E2CB9000534FD /* Main.storyboard */; };
@@ -31,6 +33,8 @@
 /* Begin PBXFileReference section */
 		094A91F62BDA04DCABBE639A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		1386050167521B0468B30C89 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		38257A901B8FD44900615C8C /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		38257A921B8FD9CB00615C8C /* MovieCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieCell.xib; sourceTree = "<group>"; };
 		38F357A61B8E2CB9000534FD /* overripe-fruit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "overripe-fruit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38F357AA1B8E2CB9000534FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38F357AB1B8E2CB9000534FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,12 +102,14 @@
 			children = (
 				38F357AB1B8E2CB9000534FD /* AppDelegate.swift */,
 				38F357AD1B8E2CB9000534FD /* ViewController.swift */,
-				38F357AF1B8E2CB9000534FD /* Main.storyboard */,
 				38F357B21B8E2CB9000534FD /* Images.xcassets */,
-				38F357B41B8E2CB9000534FD /* LaunchScreen.xib */,
 				38F357A91B8E2CB9000534FD /* Supporting Files */,
 				38F357CB1B8E326C000534FD /* MoviesViewController.swift */,
+				38257A901B8FD44900615C8C /* MovieCell.swift */,
+				38F357AF1B8E2CB9000534FD /* Main.storyboard */,
+				38F357B41B8E2CB9000534FD /* LaunchScreen.xib */,
 				38F357CC1B8E326C000534FD /* MoviesViewController.xib */,
+				38257A921B8FD9CB00615C8C /* MovieCell.xib */,
 			);
 			path = "overripe-fruit";
 			sourceTree = "<group>";
@@ -229,6 +235,7 @@
 				38F357B61B8E2CB9000534FD /* LaunchScreen.xib in Resources */,
 				38F357B31B8E2CB9000534FD /* Images.xcassets in Resources */,
 				38F357CE1B8E326C000534FD /* MoviesViewController.xib in Resources */,
+				38257A931B8FD9CB00615C8C /* MovieCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +303,7 @@
 			files = (
 				38F357AE1B8E2CB9000534FD /* ViewController.swift in Sources */,
 				38F357AC1B8E2CB9000534FD /* AppDelegate.swift in Sources */,
+				38257A911B8FD44900615C8C /* MovieCell.swift in Sources */,
 				38F357CD1B8E326C000534FD /* MoviesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
