@@ -63,7 +63,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     let cell = tableView.dequeueReusableCellWithIdentifier("com.shazam.MovieCell", forIndexPath: indexPath) as! MovieCell
 
     if let movie = data[indexPath.row] as? NSDictionary {
-      cell.setData(NSURL(string: hackImageUrl(movie.valueForKeyPath("posters.thumbnail") as! String))!,
+      cell.setData(hackImageUrl(movie.valueForKeyPath("posters.thumbnail") as! String),
         title: movie.valueForKeyPath("title") as? String,
         synopsis: movie.valueForKeyPath("synopsis") as? String,
         rating: movie.valueForKeyPath("mpaa_rating") as? String,

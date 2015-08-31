@@ -28,36 +28,48 @@ class MovieCell: UITableViewCell {
     // Configure the view for the selected state
   }
   
-  func setData(imageUrl: NSURL?, title: String?, synopsis: String?, rating: String?, stars: Int?, year: Int?) {
-    self.imageUrl = imageUrl
-    
-    // Reset the image view so that it won't show the previous image
+  func setImagePreview(url: NSURL) {
     if let imageView = posterImageView {
+      // Reset the image view so that it won't show the previous cell's image
       imageView.image = nil
       imageView.alpha = 0.0
       
-      if let url = imageUrl {
-        let req = NSURLRequest(URL: url)
-        let op = AFHTTPRequestOperation(request: req)
-        let start = NSDate.timeIntervalSinceReferenceDate()
-        imageView.setImageWithURLRequest(req, placeholderImage: nil, success: { (req, res, image) -> Void in
-          // Set the image
-          imageView.image = image
-          
-          // Fade in the image if it didn't come from the cache
-          if NSDate.timeIntervalSinceReferenceDate() - start < 0.05 {
-            imageView.alpha = 1.0
-            return
-          }
-          imageView.alpha = 0.0
-          UIView.animateWithDuration(0.5, animations: { () -> Void in
-            imageView.alpha = 1.0
-          })
-        }, failure: {(req, res, error) -> Void in
-          NSLog("Image load failed: \(error.localizedDescription)")
+      let req = NSURLRequest(URL: url)
+      let op = AFHTTPRequestOperation(request: req)
+      let start = NSDate.timeIntervalSinceReferenceDate()
+      imageView.setImageWithURLRequest(req, placeholderImage: nil, success: { (req, res, image) -> Void in
+        // Set the image
+        imageView.image = image
+        
+        // Fade in the image if it didn't come from the cache
+        if NSDate.timeIntervalSinceReferenceDate() - start < 0.05 {
+          imageView.alpha = 1.0
+          return
+        }
+        imageView.alpha = 0.0
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+          imageView.alpha = 1.0
         })
-      }
+      }, failure: {(req, res, error) -> Void in
+        NSLog("Image load failed: \(error.localizedDescription)")
+        
+        if url != self.imageUrl {
+          NSLog("Falling back to full-sized image")
+          if let imageUrl = self.imageUrl {
+            self.setImagePreview(imageUrl)
+          }
+        }
+      })
     }
+  }
+  
+  func setData(imageUrl: String?, title: String?, synopsis: String?, rating: String?, stars: Int?, year: Int?) {
+    self.imageUrl = NSURL(string: imageUrl!)
+    
+    if let imageUrl = imageUrl, url = turnIntoThumbnailURL(imageUrl) {
+      setImagePreview(url)
+    }
+    
     titleView?.text = title
     
     if let synopsis = synopsis, rating = rating, stars = stars, year = year {
@@ -79,6 +91,14 @@ class MovieCell: UITableViewCell {
       descriptionView?.attributedText = attributedText
       descriptionView?.userInteractionEnabled = false
       
+    }
+  }
+  
+  func turnIntoThumbnailURL(url: String) -> NSURL? {
+    if let range = url.rangeOfString("ori.jpg") {
+      return NSURL(string: url.stringByReplacingCharactersInRange(range, withString: "det.jpg"))
+    } else {
+      return NSURL(string: url)
     }
   }
 }
