@@ -16,7 +16,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   @IBInspectable var sourceUrl: String!
   @IBOutlet weak var tableView: UITableView!
   var refreshControl: UIRefreshControl!
-  var selectedIndex: Int = -1
+  var selectedCell: MovieCell? = nil
   
   let requestManager = AFHTTPSessionManager()
   var data: NSArray = []
@@ -51,7 +51,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let vc = segue.destinationViewController as? MovieDetailsViewController {
-      vc.data = data[selectedIndex] as? NSDictionary
+      
+      vc.image = selectedCell?.posterImageView?.image
+      vc.imageUrl = selectedCell?.imageUrl
+      vc.titleText = selectedCell?.titleView?.text
+      vc.descriptionText = selectedCell?.descriptionText
     }
   }
   
@@ -62,7 +66,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
       cell.setData(NSURL(string: hackImageUrl(movie.valueForKeyPath("posters.thumbnail") as! String))!,
         title: movie.valueForKeyPath("title") as? String,
         synopsis: movie.valueForKeyPath("synopsis") as? String,
-        rating: movie.valueForKeyPath("mpaa_rating") as? String
+        rating: movie.valueForKeyPath("mpaa_rating") as? String,
+        stars: (movie.valueForKeyPath("ratings.audience_score") as! Int) / 25, // Max 4 stars
+        year: movie.valueForKeyPath("year") as? Int
       )
     }
     
@@ -74,7 +80,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    selectedIndex = indexPath.row
+    selectedCell = tableView.cellForRowAtIndexPath(indexPath) as? MovieCell
     performSegueWithIdentifier("selection", sender: self)
   }
     
@@ -91,7 +97,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     if !self.refreshControl.refreshing {
       let jgHud = JGProgressHUD(style: JGProgressHUDStyle.Light)
       jgHud.animation = JGProgressHUDFadeAnimation()
-      jgHud.showInView(view, animated: true)
+      jgHud.showInView(view, animated: false)
       jgHud.textLabel.text = "Loading"
       hud = jgHud
     }
@@ -104,7 +110,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         self.refreshControl.endRefreshing()
       }
       if let hud = hud {
-        hud.dismissAfterDelay(1.0, animated: true)
+        hud.dismissAfterDelay(0.1, animated: true)
       }
     }, failure: { (operation, error) -> Void in
       NSLog("Load failed: \(error.localizedDescription)")

@@ -44,20 +44,31 @@
             <objects>
                 <viewController id="Agi-cb-Alm" customClass="MovieDetailsViewController" customModule="overripe_fruit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0dT-K1-NgJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KaX-7J-oTe">
-                                <rect key="frame" x="139" y="236" width="45" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="n9f-lN-xOU">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="C1D-9n-LD6">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Details" id="kVu-a8-0P5"/>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <navigationItem key="navigationItem" title="Details" id="kVu-a8-0P5">
+                        <barButtonItem key="backBarButtonItem" title=" " id="DD5-yg-qdR"/>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="posterView" destination="C1D-9n-LD6" id="WDb-kf-1Jn"/>
+                        <outlet property="scrollView" destination="n9f-lN-xOU" id="1bp-en-sqS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8yP-D3-t7g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -83,6 +94,7 @@
         <scene sceneID="AFy-us-P0o">
             <objects>
                 <tabBarController id="Ywj-ME-UZb" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Movies" id="dmZ-zZ-MbM"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="nFm-vg-WSL">
@@ -110,7 +122,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="trB-kQ-4f3"/>
+        <segue reference="gk3-bW-GKH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.75252525252525249" green="0.0013353014890098468" blue="0.17706671887908443" alpha="1" colorSpace="calibratedRGB"/>
 </document>

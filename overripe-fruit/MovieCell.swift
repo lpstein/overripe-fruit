@@ -14,6 +14,9 @@ class MovieCell: UITableViewCell {
   @IBOutlet weak var titleView: UILabel!
   @IBOutlet weak var descriptionView: UILabel!
 
+  var descriptionText: NSAttributedString?
+  var imageUrl: NSURL?
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
@@ -25,7 +28,9 @@ class MovieCell: UITableViewCell {
     // Configure the view for the selected state
   }
   
-  func setData(imageUrl: NSURL?, title: String?, synopsis: String?, rating: String?) {
+  func setData(imageUrl: NSURL?, title: String?, synopsis: String?, rating: String?, stars: Int?, year: Int?) {
+    self.imageUrl = imageUrl
+    
     // Reset the image view so that it won't show the previous image
     if let imageView = posterImageView {
       imageView.image = nil
@@ -55,11 +60,25 @@ class MovieCell: UITableViewCell {
     }
     titleView?.text = title
     
-    if let synopsis = synopsis, rating = rating {
-      let bold = [NSFontAttributeName : UIFont.boldSystemFontOfSize(12.0)]
-      var attributedText = NSMutableAttributedString(string: rating + " ", attributes: bold)
+    if let synopsis = synopsis, rating = rating, stars = stars, year = year {
+      let paragraph = NSMutableParagraphStyle()
+      paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
+      let bold = [
+        NSFontAttributeName : UIFont.boldSystemFontOfSize(14.0),
+      ]
+      let starString = String(count: stars, repeatedValue: Character("★")) +
+        String(count: 4 - stars, repeatedValue: Character("☆"))
+      let headline = "\(rating) • \(year) • \(starString)\n\n"
+      var attributedText = NSMutableAttributedString(string: headline, attributes: bold)
       attributedText.appendAttributedString(NSAttributedString(string: synopsis))
+      attributedText.setAttributes([
+        NSParagraphStyleAttributeName : paragraph
+      ], range: NSMakeRange(0, attributedText.length))
+      
+      descriptionText = attributedText
       descriptionView?.attributedText = attributedText
+      descriptionView?.userInteractionEnabled = false
+      
     }
   }
 }

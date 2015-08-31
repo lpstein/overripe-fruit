@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     setAppearance()
+    
+    let tabBar = window?.rootViewController?.childViewControllers[0] as? UITabBarController
+    tabBar?.selectedIndex = 0
+    
     return true
   }
 
@@ -42,11 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func setAppearance() {
-    let primaryColor = UIColor(white: 0.0, alpha: 0.6)
-    let secondaryColor = UIColor(red: 204.0/255.0, green: 34.0/255.0, blue: 64.0/255.0, alpha: 1.0)
+    let primaryColor = UIColor(white: 0.0, alpha: 0.2)
+    let secondaryColor = UIColor.whiteColor() //UIColor(red: 204.0/255.0, green: 34.0/255.0, blue: 64.0/255.0, alpha: 1.0)
     let textColor = UIColor.whiteColor()
     UITabBar.appearance().barTintColor = primaryColor
-    UINavigationBar.appearance().barTintColor = primaryColor
+    UINavigationBar.appearance().backgroundColor = primaryColor
+    UINavigationBar.appearance().backgroundColor = UIColor(white: 0.0, alpha: 0.0)
     UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: textColor]
     UINavigationBar.appearance().translucent = true
     UINavigationBar.appearance().barStyle = UIBarStyle.Black
