@@ -15,6 +15,7 @@ import JGProgressHUD
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   @IBInspectable var sourceUrl: String!
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var networkErrorLabel: UILabel!
   var refreshControl: UIRefreshControl!
   var selectedCell: MovieCell? = nil
   
@@ -103,6 +104,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     requestManager.GET(sourceUrl, parameters: nil, success: { (operation, response) -> Void in
+      self.networkErrorLabel?.hidden = true
       self.data = response.objectForKey("movies") as! NSArray
       self.tableView.reloadData()
       
@@ -114,6 +116,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
       }
     }, failure: { (operation, error) -> Void in
       NSLog("Load failed: \(error.localizedDescription)")
+      self.networkErrorLabel?.hidden = false
       
       if self.refreshControl.refreshing {
         self.refreshControl.endRefreshing()
