@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Ywj-ME-UZb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="zw4-8w-afN">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -9,10 +9,14 @@
         <scene sceneID="mKC-OS-cgp">
             <objects>
                 <viewController title="DVDs" id="t8l-t9-mzW" customClass="MoviesViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="contacts" id="ICR-MZ-HZU"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="DVD" image="dvd.png" id="ICR-MZ-HZU"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceUrl" value="https://gist.githubusercontent.com/timothy1ee/e41513a57049e21bc6cf/raw/b490e79be2d21818f28614ec933d5d8f467f0a66/gistfile1.json"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="Agi-cb-Alm" kind="push" identifier="selection" id="trB-kQ-4f3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tnr-n3-zGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -22,19 +26,64 @@
         <scene sceneID="VTX-iO-emh">
             <objects>
                 <viewController title="Movies" id="YRk-50-x2D" customClass="MoviesViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="70B-bE-69q"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="Box Office" image="film.png" id="70B-bE-69q"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="sourceUrl" value="https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="Agi-cb-Alm" kind="push" identifier="selection" id="gk3-bW-GKH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gc4-6z-AKK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="255" y="19"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Details-->
+        <scene sceneID="rhD-Xv-KKl">
+            <objects>
+                <viewController id="Agi-cb-Alm" customClass="MovieDetailsViewController" customModule="overripe_fruit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0dT-K1-NgJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KaX-7J-oTe">
+                                <rect key="frame" x="139" y="236" width="45" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Details" id="kVu-a8-0P5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8yP-D3-t7g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="687" y="300"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vOa-eK-DoN">
+            <objects>
+                <navigationController id="zw4-8w-afN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="U5K-ci-8TF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ywj-ME-UZb" kind="relationship" relationship="rootViewController" id="7ua-Xa-RIl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="58K-SS-ssE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-759" y="334"/>
+        </scene>
+        <!--Movies-->
         <scene sceneID="AFy-us-P0o">
             <objects>
                 <tabBarController id="Ywj-ME-UZb" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Movies" id="dmZ-zZ-MbM"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="nFm-vg-WSL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -51,9 +100,17 @@
             <point key="canvasLocation" x="-285" y="334"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="dvd.png" width="30" height="30"/>
+        <image name="film.png" width="30" height="30"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="trB-kQ-4f3"/>
+    </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.75252525252525249" green="0.0013353014890098468" blue="0.17706671887908443" alpha="1" colorSpace="calibratedRGB"/>
 </document>

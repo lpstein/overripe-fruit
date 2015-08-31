@@ -31,3 +31,5 @@ Credits
 ---------
 * [Rotten Tomatoes API](http://developer.rottentomatoes.com/docs/read/JSON)
 * [AFNetworking](https://github.com/AFNetworking/AFNetworking)
+* Icons from `Simple Icons` and `Charlie Gordon` from the Noun Project
+

@@ -11,10 +11,11 @@ import AFNetworking
 
 @objc(MoviesViewController)
 @IBDesignable
-class MoviesViewController: UIViewController, UITableViewDataSource {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   @IBInspectable var sourceUrl: String!
   @IBOutlet weak var tableView: UITableView!
   var refreshControl: UIRefreshControl!
+  var selectedIndex: Int = -1
   
   let requestManager = AFHTTPSessionManager()
   var data: NSArray = []
@@ -28,6 +29,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
 
     tableView.registerNib(UINib(nibName: "MovieCell", bundle: nil), forCellReuseIdentifier: "com.shazam.MovieCell")
     tableView.dataSource = self
+    tableView.delegate = self
     tableView.rowHeight = 180.0
     tableView.backgroundView?.layer.zPosition = -1
     
@@ -41,6 +43,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if let vc = segue.destinationViewController as? MovieDetailsViewController {
+      vc.data = data[selectedIndex] as? NSDictionary
+    }
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -59,6 +67,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return data.count
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    selectedIndex = indexPath.row
+    performSegueWithIdentifier("selection", sender: self)
   }
     
   func onRefresh() {
