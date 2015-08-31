@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import JGProgressHUD
 
 @objc(MoviesViewController)
 @IBDesignable
@@ -34,10 +35,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     tableView.backgroundView?.layer.zPosition = -1
     
     requestManager.responseSerializer.acceptableContentTypes = Set(["text/plain"])
+  
+    load()
   }
   
   override func viewWillAppear(animated: Bool) {
-    load()
+    super.viewWillAppear(animated)
+    // load()
   }
 
   override func didReceiveMemoryWarning() {
@@ -81,12 +85,26 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   }
   
   func load() {
+    // If the refresh control isn't being used, show a loading
+    // icon HUD
+    var hud: JGProgressHUD? = nil
+    if !self.refreshControl.refreshing {
+      let jgHud = JGProgressHUD(style: JGProgressHUDStyle.Light)
+      jgHud.animation = JGProgressHUDFadeAnimation()
+      jgHud.showInView(view, animated: true)
+      jgHud.textLabel.text = "Loading"
+      hud = jgHud
+    }
+    
     requestManager.GET(sourceUrl, parameters: nil, success: { (operation, response) -> Void in
       self.data = response.objectForKey("movies") as! NSArray
       self.tableView.reloadData()
       
       if self.refreshControl.refreshing {
         self.refreshControl.endRefreshing()
+      }
+      if let hud = hud {
+        hud.dismissAfterDelay(1.0, animated: true)
       }
     }, failure: { (operation, error) -> Void in
       NSLog("Load failed: \(error.localizedDescription)")
